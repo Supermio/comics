@@ -1,0 +1,22 @@
+<ion-view title="Lista" hide-back-button="true">
+    <ion-content>
+        <div class="card">
+            <p>Alternativas</p>
+        </div>
+
+        <ion-list>
+            <ion-item ng-repeat="cand in lista.cands" class="item item-icon-right" ui-sref="app.lista.opcion({candId: cand.id})">
+                <div class="row item-text-wrap">
+                    <div class="col col-25">{{cand.partido}}</div>
+                    <div class="col col-25">{{cand.nombre}}</div>
+                    <div class="col">
+                        <div class="row"><h1>{{cand.partido}}</h1></div>
+                        <div class="row"><h3>{{cand.nombre}}</h3></div>
+                    </div>
+                </div>
+                <i class="icon ion-ios7-arrow-right"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <multiple-views-support width="70%" />
+</ion-view>

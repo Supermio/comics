@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+</head>
+  <body ng-app="starter">
+      <ion-nav-view animation="slide-left-right">
+      </ion-nav-view>
+  <script id="login.html" type="text/ng-template">
+      <ion-view title="Elecciones 2014" class="bar-positive">
+          <ion-header-bar class="bar-positive">
+              <h1 class="title">Elecciones 2014</h1>
+          </ion-header-bar>
+          <div class="content has-header">
+              <form name="loginForm" novalidate>
+              <div class="list">
+                  <label class="item item-input item-stacked-label">
+                      <span class="input-label">Super Usuario</span>
+                      <input type="number" placeholder="Super Usuario" required>
+                  </label>
+                  <label class="item item-input item-stacked-label">
+                      <span class="input-label">Super Clave</span>
+                      <input type="date" placeholder="Super clave" required>
+                  </label>
+              </div>
+              <div class="padding">
+                  <button class="button button-block button-positive"
+                          ng-click="login.ingresar()">Ingresar</button>
+              </div>
+              <div class="list">
+                  <p>Error message</p>
+              </div>
+              </form>
+          </div>
+      </ion-view>
+  </script>
+  <script id="main.html" type="text/ng-template">
+      <ion-nav-bar class="bar-positive">
+          <ion-nav-back-button> Regresar</ion-nav-back-button>
+          <ion-nav-buttons side="right">
+              <button class="button icon ion-home" ui-sref="app.lista.index">Home</button>
+          </ion-nav-buttons>
+      </ion-nav-bar>
+      <ion-nav-view name="lista"></ion-nav-view>
+  </script>
+  <script id="lista.html" type="text/ng-template">
+      <ion-view title="Lista" hide-back-button="true" >
+          <ion-content scroll="true"
+                       overflow-scroll="true"
+                       has-bouncing="false"
+                       padding="0">
+              <ion-list type="card">
+                  <ion-item class="card" ng-repeat="cand in lista.cands"
+                            ui-sref="app.lista.opcion({candId: cand.id})">
+                      <div class="row row-center item-text-wrap">
+                          <div class="col col-50">
+                              <div class="row">
+                                  <h2 class="title">{{cand.partido}}</h2>
+                              </div>
+                              <div class="row">
+                                  <h3 class="title">{{cand.nombre}}</h3>
+                              </div>
+                          </div>
+                          <div class="col">{{cand.partido}}</div>
+                          <div class="col col-20">{{cand.nombre}}</div>
+                          <div class="col col-10"><i class="icon ion-ios7-arrow-forward"></i></div>
+                      </div>
+                  </ion-item>
+              </ion-list>
+          </ion-content>
+      </ion-view>
+  </script>
+  <script id="opcion.html" type="text/ng-template">
+      <ion-view title="Opcion">
+          <ion-content>
+              <div class="card">
+                  <div class="title">{{opcion.cand.partido}}</div>
+                  <div class="col">{{opcion.cand.nombre}}</div>
+                  <img ng-src="{{lastPhoto}}" style="max-width: 100%">
+              </div>
+              <button class="button button-block button-primary"
+                      ng-click="getPhoto()">Foto!
+              </button>
+
+          </ion-content>
+      </ion-view>
+  </script>
+  <script id="estado.html" type="text/ng-template">
+      <ion-view>
+          <ion-content>
+              <p><h1>Estado de la aplicación</h1></p>
+          </ion-content>
+      </ion-view>
+  </script>
+  </body>
+</html>
