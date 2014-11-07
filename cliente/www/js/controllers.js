@@ -8,21 +8,36 @@ controllers.controller('mainCtrl',function($state){
 controllers.controller('ListaCtrl',function(candidates){
     this.cands = candidates;
 });
-controllers.controller('OpcionCtrl',function(cand,$scope,$cordovaCamera){
+controllers.controller('OpcionCtrl',function(cand,$scope,Camara,$cordovaBarcodeScanner,$cordovaDialogs){
     this.cand = cand;
     $scope.getPhoto = function() {
-        alert('Voy a tomar foto');
-
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-            alert('Foto ok'+imageData);
+        Camara.getPicture({
+            quality: 50,
+            targetWidth: 320,
+            targetHeight: 320,
+            saveToPhotoAlbum: false,
+            encodingType: Camera.EncodingType.PNG,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            destinationType: Camera.DestinationType.DATA_URL
+            //allowEdit: true
+        }).then(function(imageData){
             console.log(imageData);
-            $scope.lastPhoto= imageData;
-
-        }, function(err) {
-            alert('Foto ko');
+            //$cordovaDialogs.alert(imageData,'supermio','Hecho');
+            $scope.lastPhoto = "data:image/png;base64,"+imageData;
+        }, function(err){
             console.err(err);
+            $cordovaDialogs.alert('Error:'+err,'supermio','Hecho');
         });
-
+    };
+    $scope.getCodigo = function(){
+        $cordovaBarcodeScanner
+            .scan()
+            .then(function(imageData) {
+                $cordovaDialogs.alert(imageData.text+"\n"+
+                imageData.format);
+            }, function(error) {
+               $cordovaDialogs.alert(error);
+            });
     };
 });
 controllers.controller('Base',function(){

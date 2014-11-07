@@ -3,26 +3,17 @@
  */
 var services = angular.module('services',[]);
 
-services.service('Camera',['$q',function($q,$cordovaCamera){
+services.service('Camara',['$q','$cordovaCamera', function($q,$cordovaCamera) {
     return {
-        getPicture: function(){
+        getPicture: function(options){
             var q = $q.defer();
-            var options = {
-                quality : 100,
-                allowEdit : false,
-                targetWidth: 200,
-                targetHeight: 200,
-                saveToPhotoAlbum: false
-            };
 
-            $cordovaCamera.getPicture(options).then(
-                function(result){
-                    q.resolve(result);
-                },
-                function(err){
-                    q.reject(err);
-                }
-            );
+            $cordovaCamera.getPicture(options).then(function(result) {
+                q.resolve(result);
+            }, function(err){
+                q.reject(err);
+            });
+
             return q.promise;
         }
     }
